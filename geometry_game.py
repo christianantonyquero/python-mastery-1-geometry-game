@@ -7,9 +7,9 @@ class Point:
         self.x = x
         self.y = y
 
-    def is_inside_rectangle(self, rectangle):
-        if rectangle.point1.x < self.x < rectangle.point2.x \
-                and rectangle.point1.y < self.y < rectangle.point2.y:
+    def is_inside_rectangle(self, rectangle_to_compare):
+        if rectangle_to_compare.point1.x < self.x < rectangle_to_compare.point2.x \
+                and rectangle_to_compare.point1.y < self.y < rectangle_to_compare.point2.y:
             return True
         else:
             return False
@@ -33,7 +33,6 @@ class GuiRectangle(Rectangle):
     def draw(self, canvas):
         canvas.penup()
         canvas.goto(self.point1.x, self.point1.y)
-
         canvas.pendown()
 
         canvas.forward(self.point2.x - self.point1.x)
@@ -54,21 +53,22 @@ class GuiPoint(Point):
         canvas.dot(size, color)
 
 
-# Create rectangle object
+# Generate 2 random points
 p1 = Point(randint(0, 400), randint(0, 400))
 p2 = Point(randint(10, 400), randint(10, 400))
-rectangle = GuiRectangle(p1, p2)
 
+# Draw random generated rectangle
+rectangle = GuiRectangle(p1, p2)
 # Print rectangle coordinates
-print("Rectangle Coordinates: (",
-      rectangle.point1.x, ",",
-      rectangle.point1.y, ") and (",
-      rectangle.point2.x, ",",
+print("Rectangle Coordinates: (", rectangle.point1.x, ",",
+      rectangle.point1.y, ") and (", rectangle.point2.x, ",",
       rectangle.point2.y, ")", )
+
 
 # Get input point from the user
 user_x_input = float(input("Guess X: "))
 user_y_input = float(input("Guess Y: "))
+# Draw user input point
 user_point = GuiPoint(user_x_input, user_y_input)
 
 # Get area guess from the user
